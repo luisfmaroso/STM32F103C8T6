@@ -52,6 +52,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 01-Blink.list \
 
+OBJCOPY_HEX += \
+01-Blink.hex \
+
+OBJCOPY_BIN += \
+01-Blink.bin \
+
 
 # All Target
 all: main-build
@@ -75,12 +81,22 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+01-Blink.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "01-Blink.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+01-Blink.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "01-Blink.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) 01-Blink.elf 01-Blink.list 01-Blink.map default.size.stdout
+	-$(RM) 01-Blink.bin 01-Blink.elf 01-Blink.hex 01-Blink.list 01-Blink.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
