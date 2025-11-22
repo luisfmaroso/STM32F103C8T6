@@ -1,1 +1,2 @@
 # STM32F103C8T6
+Exercises with STM32F103C8T6 board. 
