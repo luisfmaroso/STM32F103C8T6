@@ -1,0 +1,8 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+Makefile linguist-generated
+*.mk linguist-generated
+*.bat linguist-generated
+*.cmd linguist-generated
+CMakeLists.txt linguist-generated
+*.cmake linguist-generated
